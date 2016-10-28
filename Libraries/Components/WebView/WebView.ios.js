@@ -319,6 +319,18 @@ class WebView extends React.Component {
     onShouldStartLoadWithRequest: PropTypes.func,
 
     /**
+     * Function that is invoked when a defined URL-scheme has been blocked 
+     * or been allowed through.
+     */
+    onAllowedUrlScheme: PropTypes.func,
+
+    /**
+     * An object defining allowed/disallowed URL-schemes. 
+     * This is done in the format of { 'scheme1': true, 'scheme2': false }.
+     */
+    allowedUrlSchemes: PropTypes.any,
+
+    /**
      * Boolean that determines whether HTML5 videos play inline or use the
      * native full-screen controller. The default value is `false`.
      *
@@ -400,6 +412,7 @@ class WebView extends React.Component {
         key="webViewKey"
         style={webViewStyles}
         source={resolveAssetSource(source)}
+        allowedUrlSchemes={this.props.allowedUrlSchemes}
         injectedJavaScript={this.props.injectedJavaScript}
         bounces={this.props.bounces}
         scrollEnabled={this.props.scrollEnabled}
@@ -409,6 +422,7 @@ class WebView extends React.Component {
         onLoadingStart={this._onLoadingStart}
         onLoadingFinish={this._onLoadingFinish}
         onLoadingError={this._onLoadingError}
+	onAllowedUrlScheme={this._onAllowedUrlScheme}
         messagingEnabled={messagingEnabled}
         onMessage={this._onMessage}
         onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
@@ -539,6 +553,11 @@ class WebView extends React.Component {
     var {onMessage} = this.props;
     onMessage && onMessage(event);
   }
+  
+  _onAllowedUrlScheme = (event: Event) => {
+    var onAllowedUrlScheme = this.props.onAllowedUrlScheme;
+    onAllowedUrlScheme && onAllowedUrlScheme(event);
+  };
 }
 
 var RCTWebView = requireNativeComponent('RCTWebView', WebView, {
@@ -546,6 +565,7 @@ var RCTWebView = requireNativeComponent('RCTWebView', WebView, {
     onLoadingStart: true,
     onLoadingError: true,
     onLoadingFinish: true,
+    onAllowedUrlScheme: true,
     onMessage: true,
     messagingEnabled: PropTypes.bool,
   },
