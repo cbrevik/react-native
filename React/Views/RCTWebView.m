@@ -29,7 +29,7 @@ NSString *const RCTJSPostMessageHost = @"postMessage";
 @property (nonatomic, copy) RCTDirectEventBlock onLoadingError;
 @property (nonatomic, copy) RCTDirectEventBlock onShouldStartLoadWithRequest;
 @property (nonatomic, copy) RCTDirectEventBlock onMessage;
-@property (nonatomic, copy) RCTDirectEventBlock onAllowedUrlScheme;
+@property (nonatomic, copy) RCTDirectEventBlock onUrlSchemeBlocked;
 
 @end
 
@@ -209,22 +209,20 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
     };
   });
   
-  if (!isJSNavigation && _allowedUrlSchemes) {
-    for (id key in _allowedUrlSchemes) {
-      if ([request.URL.scheme isEqualToString:key]) {
-        BOOL allowed = [[_allowedUrlSchemes objectForKey:key] boolValue];
-        if (_onAllowedUrlScheme) {
+  if (!isJSNavigation && _urlSchemeBlacklist) {
+    for (id scheme in _urlSchemeBlacklist) {
+      if ([request.URL.scheme isEqualToString:scheme]) {
+        if (_onUrlSchemeBlocked) {
           NSMutableDictionary<NSString *, id> *event = [self baseEvent];
           [event addEntriesFromDictionary: @{
                                              @"scheme": request.URL.scheme,
-                                             @"allowed": @(allowed),
                                              @"url": (request.URL).absoluteString,
                                              @"navigationType": navigationTypes[@(navigationType)]
                                              }];
-          _onAllowedUrlScheme(event);
+          _onUrlSchemeBlocked(event);
         }
         
-        return allowed;
+        return NO;
       }
     }
   }
