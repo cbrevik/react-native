@@ -22,6 +22,10 @@ module.exports = {
     return [];
   },
 
+  getCodeExts() {
+    return [];
+  },
+
   getBlacklistRE() {
     return blacklist();
   },

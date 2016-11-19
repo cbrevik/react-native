@@ -39,6 +39,10 @@ const validateOpts = declareOpts({
     type: 'array',
     required: true,
   },
+  codeExts: {
+    type: 'array',
+    required: true,
+  },
   cache: {
     type: 'object',
     required: true,
@@ -89,6 +93,7 @@ class Resolver {
     this._depGraph = new DependencyGraph({
       roots: opts.projectRoots,
       assetExts: opts.assetExts,
+      extensions: opts.codeExts,
       ignoreFilePath: function(filepath) {
         return filepath.indexOf('__tests__') !== -1 ||
           (opts.blacklistRE && opts.blacklistRE.test(filepath));

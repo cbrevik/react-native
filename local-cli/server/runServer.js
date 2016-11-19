@@ -87,6 +87,7 @@ function getPackagerServer(args, config) {
 
   return ReactPackager.createServer({
     assetExts: defaultAssetExts.concat(args.assetExts),
+    codeExts: args.codeExts,
     blacklistRE: config.getBlacklistRE(),
     cacheVersion: '3',
     extraNodeModules: config.extraNodeModules,

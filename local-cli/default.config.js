@@ -9,6 +9,7 @@
  'use strict';
 
 var blacklist = require('../packager/blacklist');
+var defaultCodeExts = require('../packager/defaults').codeExts;
 var path = require('path');
 var rnpmConfig = require('./core/config');
 
@@ -26,12 +27,19 @@ var config = {
   getDependencyConfig: rnpmConfig.getDependencyConfig,
 
   /**
-   * Specify any additional asset extentions to be used by the packager.
+   * Specify any additional asset extensions to be used by the packager.
    * For example, if you want to include a .ttf file, you would return ['ttf']
    * from here and use `require('./fonts/example.ttf')` inside your app.
    */
   getAssetExts() {
     return [];
+  },
+
+  /**
+   * Specify the code extensions to be used by the packager.
+   */
+  getCodeExts() {
+    return defaultCodeExts;
   },
 
   /**

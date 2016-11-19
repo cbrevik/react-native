@@ -83,6 +83,10 @@ const validateOpts = declareOpts({
     type: 'array',
     default: defaults.assetExts,
   },
+  codeExts: {
+    type: 'array',
+    required: false,
+  },
   transformTimeoutInterval: {
     type: 'number',
     required: false,

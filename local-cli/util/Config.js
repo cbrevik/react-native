@@ -21,6 +21,7 @@ const RN_CLI_CONFIG = 'rn-cli.config.js';
 export type ConfigT = {
   extraNodeModules?: {[id: string]: string},
   getAssetExts?: () => Array<string>,
+  getCodeExts?: () => Array<string>,
   getTransformModulePath?: () => string,
   getTransformOptions?: GetTransformOptions<*>,
   transformVariants?: () => {[name: string]: Object},

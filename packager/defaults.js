@@ -17,6 +17,10 @@ exports.assetExts =  [
   'html', 'pdf', // Document formats
 ];
 
+exports.codeExts = [
+  'js', 'json'
+];
+
 exports.moduleSystem = require.resolve('./react-packager/src/Resolver/polyfills/require.js');
 
 exports.platforms = ['ios', 'android', 'windows', 'web'];

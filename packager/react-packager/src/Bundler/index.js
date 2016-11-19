@@ -89,6 +89,10 @@ const validateOpts = declareOpts({
     type: 'array',
     default: ['png'],
   },
+  codeExts: {
+    type: 'array',
+    required: false,
+  },
   watch: {
     type: 'boolean',
     default: false,
@@ -124,6 +128,7 @@ type Options = {
   getTransformOptions?: GetTransformOptions<*>,
   extraNodeModules: {},
   assetExts: Array<string>,
+  codeExts: Array<string>,
   watch: boolean,
   assetServer: AssetServer,
   transformTimeoutInterval: ?number,
@@ -183,6 +188,7 @@ class Bundler {
     });
 
     this._resolver = new Resolver({
+      codeExts: opts.codeExts,
       assetExts: opts.assetExts,
       blacklistRE: opts.blacklistRE,
       cache: this._cache,

@@ -97,6 +97,11 @@ module.exports = {
     parse: (val) => val.split(','),
     default: (config) => config.getAssetExts(),
   }, {
+    command: '--codeExts [list]',
+    description: 'Specify the code extentions to be used by the packager',
+    parse: (val) => val.split(','),
+    default: (config) => config.getCodeExts(),
+  }, {
     command: '--skipflow',
     description: 'Disable flow checks'
   }, {

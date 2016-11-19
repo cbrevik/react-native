@@ -50,6 +50,7 @@ function buildBundle(args, config, output = outputBundle, packagerInstance) {
 
     const options = {
       projectRoots: config.getProjectRoots(),
+      codeExts: config.getCodeExts(),
       assetExts: defaultAssetExts.concat(assetExts),
       blacklistRE: config.getBlacklistRE(),
       getTransformOptions: config.getTransformOptions,
